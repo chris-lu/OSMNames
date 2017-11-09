@@ -47,7 +47,7 @@ def import_pbf_file():
         "-read", pbf_filepath,
         "-write",
         "-overwritecache",
-	"-cachedir=/osmnames/tmp"
+        "-cachedir=/osmnames/tmp"
     ])
 
 
