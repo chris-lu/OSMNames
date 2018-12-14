@@ -1,10 +1,11 @@
-FROM golang:1.8
+FROM golang:1.10
 
-RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main' >> /etc/apt/sources.list && \
+RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main' >> /etc/apt/sources.list && \
     wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+      libpq5 \
       libprotobuf-dev \
       libleveldb-dev \
       libgeos-dev \
@@ -30,6 +31,6 @@ RUN apt-get purge -y --auto-remove \
 ADD . /osmnames
 WORKDIR /osmnames
 
-RUN pip install -r requirements.txt.lock
+RUN pip install -r requirements.txt
 
 CMD ["./run.py"]

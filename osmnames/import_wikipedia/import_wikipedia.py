@@ -32,7 +32,13 @@ def restore_wikipedia_dump():
 
 def _create_temporary_user_for_dump():
     query = """
-        CREATE ROLE brian LOGIN PASSWORD 'brian';
+        DO $$
+        BEGIN
+            IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'brian') THEN
+                CREATE ROLE brian LOGIN PASSWORD 'brian';
+            END IF;
+        END
+        $$;
         GRANT ALL PRIVILEGES ON DATABASE {database} to brian;
     """.format(database=settings.get("DB_NAME"))
 
