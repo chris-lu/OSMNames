@@ -27,7 +27,7 @@ DO $$
 BEGIN
   PERFORM set_parent_id_for_elements_within_geometry(id, place_rank, geometry)
           FROM osm_polygon
-          WHERE place_rank <= 22 AND type NOT IN ('water', 'desert', 'bay', 'reservoir')
+          WHERE place_rank <= 22 AND type NOT IN ('water','desert','island','bay','river','peak','volcano','islet','mountain_pass','hill','reservoir','stream')
           ORDER BY place_rank DESC;
 END
 $$ LANGUAGE plpgsql;
